@@ -199,25 +199,31 @@ export default function PlayerModal() {
           <Text style={styles.controlsLabel}>Playback Controls</Text>
           <View style={styles.controlsRow}>
             <GlassButton
-              title="⏪ -10s"
+              icon="⏪"
+              title="-10s"
               onPress={() => handleSeek(Math.max(0, getProgress() - (10 / duration) * 100))}
               variant="secondary"
               style={styles.controlButton}
+              accessibilityLabel="Rewind 10 seconds"
             />
 
             <GlassButton
-              title={loading ? '...' : isPlaying ? '⏸ Pause' : '▶ Play'}
+              icon={loading ? undefined : isPlaying ? '⏸' : '▶'}
+              title={loading ? '...' : isPlaying ? 'Pause' : 'Play'}
               onPress={handlePlayPause}
               variant="primary"
               style={styles.mainControlButton}
               loading={loading}
+              accessibilityLabel={isPlaying ? 'Pause playback' : 'Play playback'}
             />
 
             <GlassButton
-              title="⏩ +10s"
+              icon="⏩"
+              title="+10s"
               onPress={() => handleSeek(Math.min(100, getProgress() + (10 / duration) * 100))}
               variant="secondary"
               style={styles.controlButton}
+              accessibilityLabel="Forward 10 seconds"
             />
           </View>
 
@@ -380,17 +386,17 @@ const styles = StyleSheet.create({
   },
   controlsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'stretch',
     gap: THEME.spacing.sm,
   },
   controlButton: {
-    flex: 0.25,
-    marginHorizontal: THEME.spacing.xs,
+    flex: 1,
+    minHeight: 72,
   },
   mainControlButton: {
-    flex: 0.4,
-    marginHorizontal: THEME.spacing.xs,
+    flex: 1.15,
+    minHeight: 72,
   },
   errorText: {
     color: '#FF6B6B',

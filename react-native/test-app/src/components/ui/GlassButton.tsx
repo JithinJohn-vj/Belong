@@ -3,6 +3,7 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
+  View,
   ViewStyle,
   TextStyle,
   StyleSheet,
@@ -19,6 +20,8 @@ interface GlassButtonProps {
   textStyle?: TextStyle;
   variant?: 'primary' | 'secondary';
   accessibilityLabel?: string;
+  /** Renders above title — keeps icon and label aligned in control rows */
+  icon?: string;
 }
 
 export const GlassButton: React.FC<GlassButtonProps> = ({
@@ -30,6 +33,7 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
   textStyle,
   variant = 'primary',
   accessibilityLabel,
+  icon,
 }) => {
   const gradientColors =
     variant === 'primary'
@@ -51,6 +55,13 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
       >
         {loading ? (
           <ActivityIndicator color={THEME.colors.text.primary} size="small" />
+        ) : icon ? (
+          <View style={styles.iconStack}>
+            <Text style={styles.buttonIcon}>{icon}</Text>
+            <Text style={[styles.buttonText, styles.buttonTextWithIcon, textStyle]}>
+              {title}
+            </Text>
+          </View>
         ) : (
           <Text style={[styles.buttonText, textStyle]}>{title}</Text>
         )}
@@ -71,9 +82,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  iconStack: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonIcon: {
+    fontSize: 22,
+    lineHeight: 26,
+    textAlign: 'center',
+    marginBottom: 2,
+  },
   buttonText: {
     color: THEME.colors.text.primary,
     fontSize: THEME.fonts.sizes.md,
     fontWeight: '600',
+    textAlign: 'center',
+  },
+  buttonTextWithIcon: {
+    fontSize: THEME.fonts.sizes.sm,
+    lineHeight: 18,
   },
 });
