@@ -1,0 +1,36 @@
+{
+  "name": "musicrewards-test-app",
+  "version": "1.0.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "start": "expo start",
+    "web": "expo start --web"
+  },
+  "react-native-track-player": {
+    "playback-service": "src/services/playbackService.ts"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~54.0.12",
+    "expo-blur": "~15.0.7",
+    "expo-linear-gradient": "~15.0.7",
+    "expo-router": "3.5.23",
+    "react": "19.1.0",
+    "react-native": "0.81.4",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-reanimated": "~4.1.2",
+    "react-native-track-player": "^4.1.2",
+    "zustand": "^5.0.4"
+  },
+  "overrides": {
+    "react": "19.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.7",
+    "@types/react": "~19.1.10",
+    "babel-preset-expo": "^54.0.3",
+    "typescript": "~5.9.2"
+  }
+}
