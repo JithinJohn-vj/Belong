@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: belong
+      POSTGRES_PASSWORD: belong_dev
+      POSTGRES_DB: fan_rewards
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  postgres-test:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: belong
+      POSTGRES_PASSWORD: belong_dev
+      POSTGRES_DB: fan_rewards_test
+    ports:
+      - '5433:5432'
+
+volumes:
+  pgdata:
