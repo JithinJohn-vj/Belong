@@ -42,10 +42,10 @@ export const useMusicPlayer = (): UseMusicPlayerReturn => {
     }
   }, [progress.position, progress.duration, currentTrack, setCurrentPosition, updateProgress]);
 
-  // Pause when app goes inactive (phone call, etc.); user can resume manually
+  // Pause when app is backgrounded (not on brief "inactive" during modals / calls UI)
   useEffect(() => {
     const handleAppState = (nextState: AppStateStatus) => {
-      if (nextState === 'inactive' || nextState === 'background') {
+      if (nextState === 'background') {
         TrackPlayer.pause().catch(() => undefined);
       }
     };

@@ -178,17 +178,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: THEME.colors.text.primary,
     marginBottom: THEME.spacing.xs,
+    textAlign: 'center',
+    alignSelf: 'stretch',
   },
   artist: {
     fontSize: THEME.fonts.sizes.lg,
     color: THEME.colors.text.secondary,
     marginBottom: THEME.spacing.md,
+    textAlign: 'center',
+    alignSelf: 'stretch',
   },
   description: {
     fontSize: THEME.fonts.sizes.md,
     color: THEME.colors.text.tertiary,
     lineHeight: 22,
     marginBottom: THEME.spacing.lg,
+    textAlign: 'center',
+    alignSelf: 'stretch',
   },
   statsRow: {
     flexDirection: 'row',

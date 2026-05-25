@@ -141,9 +141,11 @@ export default function PlayerModal() {
         <View style={styles.sections}>
         {/* Track Info */}
         <GlassCard style={styles.sectionCard}>
-          <Text style={styles.trackTitle}>{currentTrack.title}</Text>
-          <Text style={styles.trackArtist}>{currentTrack.artist}</Text>
-          <Text style={styles.trackDescription}>{currentTrack.description}</Text>
+          <View style={styles.trackInfo}>
+            <Text style={styles.trackTitle}>{currentTrack.title}</Text>
+            <Text style={styles.trackArtist}>{currentTrack.artist}</Text>
+            <Text style={styles.trackDescription}>{currentTrack.description}</Text>
+          </View>
         </GlassCard>
 
         <PointsCounter
@@ -313,17 +315,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: THEME.colors.text.primary,
     textAlign: 'center',
+    alignSelf: 'stretch',
     marginBottom: THEME.spacing.xs,
   },
   trackArtist: {
     fontSize: THEME.fonts.sizes.lg,
     color: THEME.colors.text.secondary,
     marginBottom: THEME.spacing.md,
+    textAlign: 'center',
+    alignSelf: 'stretch',
   },
   trackDescription: {
     fontSize: THEME.fonts.sizes.sm,
     color: THEME.colors.text.tertiary,
     textAlign: 'center',
+    alignSelf: 'stretch',
     marginTop: THEME.spacing.xs,
   },
   pointsContainer: {
