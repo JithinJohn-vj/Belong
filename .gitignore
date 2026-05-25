@@ -1,0 +1,24 @@
+# Ignore node_modules in the React Native test app
+react-native/test-app/node_modules/
+react-native/test-app/ios/
+react-native/test-app/android/
+
+# General Node/Expo artifacts
+**/node_modules/
+**/.expo/
+**/.cache/
+**/.DS_Store
+**/dist/
+**/build/
+**/coverage/
+
+# Internal evaluation rubric (not for candidates)
+backend/EVALUATION.md
+
+# macOS
+.DS_Store
+
+# Expo generated
+react-native/test-app/expo-env.d.ts
+react-native/test-app/.expo/
+
