@@ -33,7 +33,9 @@ export default async function playbackService() {
 
   // Handle playback errors
   TrackPlayer.addEventListener(Event.PlaybackError, (event) => {
-    console.error('Playback error:', event);
+    if (__DEV__) {
+      console.warn('Playback error:', event);
+    }
   });
 }
 

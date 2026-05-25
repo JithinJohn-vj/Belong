@@ -8,7 +8,7 @@ import TrackPlayer, {
   useTrackPlayerEvents,
 } from 'react-native-track-player';
 import { useMusicStore, selectCurrentTrack, selectIsPlaying } from '../stores/musicStore';
-import { ensureTrackPlayerSetup } from '../services/audioService';
+import { loadAndPlayChallenge } from '../services/audioService';
 import { isPlayingState } from '../utils/playbackState';
 import type { MusicChallenge, UseMusicPlayerReturn } from '../types';
 
@@ -65,16 +65,7 @@ export const useMusicPlayer = (): UseMusicPlayerReturn => {
       try {
         setLoading(true);
         setError(null);
-        await ensureTrackPlayerSetup();
-        await TrackPlayer.reset();
-        await TrackPlayer.add({
-          id: track.id,
-          url: track.audioUrl,
-          title: track.title,
-          artist: track.artist,
-          duration: track.duration,
-        });
-        await TrackPlayer.play();
+        await loadAndPlayChallenge(track);
         setCurrentTrack(track);
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Playback failed';

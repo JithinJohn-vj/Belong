@@ -1,5 +1,6 @@
 // Audio service - TrackPlayer setup and configuration
 import TrackPlayer, { Capability, AppKilledPlaybackBehavior } from 'react-native-track-player';
+import type { MusicChallenge } from '../types';
 
 let setupPromise: Promise<void> | null = null;
 
@@ -93,6 +94,20 @@ export const addTrack = async (track: {
     console.error('Add track error:', error);
     throw error;
   }
+};
+
+/** Load a challenge into the queue and start playback (shared by hooks and screens). */
+export const loadAndPlayChallenge = async (track: MusicChallenge): Promise<void> => {
+  await ensureTrackPlayerSetup();
+  await TrackPlayer.reset();
+  await TrackPlayer.add({
+    id: track.id,
+    url: track.audioUrl,
+    title: track.title,
+    artist: track.artist,
+    duration: track.duration,
+  });
+  await TrackPlayer.play();
 };
 
 // Play current track

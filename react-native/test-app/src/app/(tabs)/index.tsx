@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import { ChallengeList } from '../../components/challenge/ChallengeList';
-import { useMusicPlayer } from '../../hooks/useMusicPlayer';
 import { useChallenges } from '../../hooks/useChallenges';
+import { loadAndPlayChallenge } from '../../services/audioService';
 import { useMusicStore, selectCurrentTrack, selectIsPlaying } from '../../stores/musicStore';
 import { THEME } from '../../constants/theme';
 import type { MusicChallenge } from '../../types';
@@ -12,7 +12,7 @@ import type { MusicChallenge } from '../../types';
 export default function HomeScreen() {
   const currentTrack = useMusicStore(selectCurrentTrack);
   const isPlaying = useMusicStore(selectIsPlaying);
-  const { play } = useMusicPlayer();
+  const setCurrentTrack = useMusicStore((state) => state.setCurrentTrack);
   const { challenges, loading, error, refreshChallenges } = useChallenges();
 
   useEffect(() => {
@@ -21,10 +21,13 @@ export default function HomeScreen() {
 
   const handlePlayChallenge = async (challenge: MusicChallenge) => {
     try {
-      await play(challenge);
+      await loadAndPlayChallenge(challenge);
+      setCurrentTrack(challenge);
       router.push('/(modals)/player');
     } catch (err) {
-      console.error('Failed to play challenge:', err);
+      if (__DEV__) {
+        console.warn('Failed to play challenge:', err);
+      }
     }
   };
 

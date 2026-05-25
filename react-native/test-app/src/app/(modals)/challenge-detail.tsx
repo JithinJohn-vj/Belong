@@ -1,23 +1,26 @@
 // Challenge Detail - Individual challenge view with completion tracking
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { GlassCard } from '../../components/ui/GlassCard';
 import { GlassButton } from '../../components/ui/GlassButton';
 import { useChallenges } from '../../hooks/useChallenges';
-import { useMusicPlayer } from '../../hooks/useMusicPlayer';
+import { loadAndPlayChallenge } from '../../services/audioService';
 import { useMusicStore, selectChallenges } from '../../stores/musicStore';
 import { THEME } from '../../constants/theme';
 
 export default function ChallengeDetailScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id: idParam } = useLocalSearchParams<{ id: string | string[] }>();
+  const challengeId = Array.isArray(idParam) ? idParam[0] : idParam;
   const challenges = useMusicStore(selectChallenges);
+  const setCurrentTrack = useMusicStore((state) => state.setCurrentTrack);
   const { completedChallenges, completeChallenge } = useChallenges();
-  const { play, loading: playLoading } = useMusicPlayer();
+  const [playLoading, setPlayLoading] = useState(false);
 
-  const challenge = challenges.find((c) => c.id === id);
+  const challenge = challenges.find((c) => c.id === challengeId);
   const isCompleted =
-    challenge?.completed || (id ? completedChallenges.includes(id) : false);
+    challenge?.completed ||
+    (challengeId ? completedChallenges.includes(challengeId) : false);
 
   const formatDuration = (seconds: number) => {
     const m = Math.floor(seconds / 60);
@@ -28,12 +31,18 @@ export default function ChallengeDetailScreen() {
   const handlePlay = useCallback(async () => {
     if (!challenge || isCompleted) return;
     try {
-      await play(challenge);
+      setPlayLoading(true);
+      await loadAndPlayChallenge(challenge);
+      setCurrentTrack(challenge);
       router.push('/(modals)/player');
     } catch (err) {
-      console.error('Play failed:', err);
+      if (__DEV__) {
+        console.warn('Play failed:', err);
+      }
+    } finally {
+      setPlayLoading(false);
     }
-  }, [challenge, isCompleted, play]);
+  }, [challenge, isCompleted, setCurrentTrack]);
 
   if (!challenge) {
     return (
