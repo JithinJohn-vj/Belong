@@ -59,7 +59,8 @@ Open the **MusicRewards** app on the device/simulator. Press `r` in the terminal
 
 ## Project Structure
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for design decisions.
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — technical structure and design decisions
+- [POINTS_AND_COMPLETION.md](./POINTS_AND_COMPLETION.md) — how points, completion, seeking, and playback behave
 
 ## Submission Checklist
 
