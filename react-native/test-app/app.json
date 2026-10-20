@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "musicrewards-test-app",
-    "slug": "musicrewards-test-app",
+    "slug": "john",
     "version": "1.0.0",
     "platforms": [
       "ios",
@@ -35,6 +35,7 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "owner": "jithinjohnvs-team"
   }
 }
