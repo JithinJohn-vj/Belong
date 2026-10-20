@@ -36,6 +36,11 @@
     "experiments": {
       "typedRoutes": true
     },
-    "owner": "jithinjohnvs-team"
+    "owner": "jithinjohnvs-team",
+    "extra": {
+      "eas": {
+        "projectId": "fd465682-63d9-42f9-a020-c78602cff4f8"
+      }
+    }
   }
 }
